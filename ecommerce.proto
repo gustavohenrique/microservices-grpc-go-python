@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package ecommerce;
+
+service Discount {
+  rpc ApplyDiscount (DiscountRequest) returns (DiscountResponse) {}
+}
+
+message Customer {
+  int32 id = 1;
+  string first_name = 2;
+  string last_name = 3;
+}
+
+message Product {
+  int32 id = 1;
+  string slug = 2;
+  string description = 3;
+  int32 price_in_cents = 4;
+  DiscountValue discount_value = 5;
+}
+
+message DiscountValue {
+  float pct = 1;
+  int32 value_in_cents = 2;
+}
+
+
+message DiscountRequest {
+  Customer customer = 1;
+  Product product = 2;
+}
+
+message DiscountResponse {
+  Product product = 1;
+}

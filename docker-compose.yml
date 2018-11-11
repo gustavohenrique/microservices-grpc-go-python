@@ -1,0 +1,20 @@
+version: '3'
+services:
+  discount:
+    build:
+      context: .
+      dockerfile: Dockerfile.discount
+    ports:
+      - 11443:11443
+  catalog:
+    build:
+      context: .
+      dockerfile: Dockerfile.catalog
+    environment:
+      - DISCOUNT_SERVICE_HOST=discount:11443
+    links:
+      - discount:discount
+    depends_on:
+      - discount
+    ports:
+      - 11080:11080
